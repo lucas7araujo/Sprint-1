@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Inserção de Notícias</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+
+<body>
+
+  <header>
+    <h1 class="headerh1">
+      <a href="index.html">
+        <i class="fa fa-home"></i> 
+      </a>
+    </h1>
+
+    <nav>
+      <a href="detalhes.html" class="nav-link">Página Notícias</a>
+    </nav>
+  </header>
+
+  <main>
+    <div class="titulo">
+      <h1>Desloca News</h1>
+      <p id="data-atual"></p>
+    </div>
+    <div class="container">
+      <form class="input-noticias">
+        <h3>Inserção de Notícias</h3>
+        <input type="text" id="titulo" name="titulo" placeholder="Digite o título da notícia:" required>
+        <input type="text" id="autor" name="autor" placeholder="Autor da notícia:" required>
+        <input type="text" id="conteudo" name="conteudo" placeholder="Conteúdo da notícia:" required>
+        <button type="button" onclick="adicionarNoticia()">Adicionar</button>
+      </form>
+      <div id="noticias-container"></div>
+    </div>
+    <div class="tarifas">
+      <p>Tarifa Municipal - R$ 5,95</p>
+    </div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="iconesrodape">
+        <a href="https://www.instagram.com/cruzeiro" target="_blank">
+          <i class="fab fa-instagram fa-2x"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/seu-perfil" target="_blank">
+          <i class="fab fa-linkedin fa-2x"></i>
+        </a>
+        <a href="tel:+5531999999999">
+          <i class="fas fa-phone fa-2x"></i>
+        </a>
+        <a href="mailto:contato@deslocaae.com">
+          <i class="fas fa-envelope fa-2x"></i>
+        </a>
+      </div>
+    </div>
+    <div class="direitos">
+      <p>&copy; 2025 Desloca Aê. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+
+  <script src="apps.js"></script>
+
+</body>
+
+</html>
