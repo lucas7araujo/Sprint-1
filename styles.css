@@ -327,7 +327,7 @@ header a {
   font-weight: bold;
 }
 
-.msg-info{
+.msg-info {
   text-align: center;
   font-size: 1.8rem;
 }
@@ -358,7 +358,8 @@ header a {
   #titulo,
   #autor,
   #conteudo,
-  .input-noticias button {
+  .input-noticias button,
+  .input-noticias h3 {
     font-size: 1rem;
   }
 
@@ -370,8 +371,13 @@ header a {
     font-size: 1rem;
   }
 
-  .msg-info{
+  .msg-info {
     font-size: 1.5rem;
+  }
+
+  .input-noticias {
+    gap: 0.5rem;
+    padding: 1rem;
   }
 }
 
@@ -400,7 +406,8 @@ header a {
   #titulo,
   #autor,
   #conteudo,
-  .input-noticias button {
+  .input-noticias button,
+  .input-noticias h3 {
     font-size: 0.8rem;
   }
 
@@ -419,8 +426,13 @@ header a {
     font-size: 0.8rem;
   }
 
-  .msg-info{
+  .msg-info {
     font-size: 1.2rem;
+  }
+
+  .input-noticias {
+    gap: 0.2rem;
+    padding: 0.7rem;
   }
 
 }
