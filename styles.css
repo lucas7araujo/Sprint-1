@@ -48,8 +48,6 @@ header {
   background-image: url('img/backgroundazul.avif');
   color: white;
   padding: 1%;
-  border-radius: 15px;
-  margin: 10px;
 }
 
 header h1 {
@@ -241,15 +239,7 @@ header a {
 }
 
 
-.footer {
-  background-image: url('img/backgroundyellow.jpg');
-  color: white;
-  text-align: center;
-  padding: 30px 20px 15px;
-  font-family: sans-serif;
-  margin: 2rem;
-  border-radius: 10px;
-}
+
 
 .footer h3 {
   margin: 0;
@@ -431,7 +421,7 @@ header a {
   }
 
   .input-noticias {
-    gap: 0.2rem;
+    gap: 0.3rem;
     padding: 0.7rem;
   }
 
