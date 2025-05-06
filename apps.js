@@ -2,9 +2,14 @@ function adicionarNoticia() {
     const titulo = document.getElementById('titulo').value;
     const autor = document.getElementById('autor').value;
     const conteudo = document.getElementById('conteudo').value;
+    const data = new Date().toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: '2-digit',
+        year: 'numeric'
+    });
 
 
-    const noticia = { titulo, autor, conteudo };
+    const noticia = { titulo, autor, conteudo, data };
     let noticias = JSON.parse(localStorage.getItem('noticias')) || [];
     noticias.push(noticia);
     localStorage.setItem('noticias', JSON.stringify(noticias));
@@ -26,6 +31,11 @@ function adicionarNoticia() {
 
     const pConteudo = document.createElement('p');
     pConteudo.textContent = conteudo;
+
+    const pData = document.createElement('p'); 
+    pData.textContent = `Data: ${data}`;       
+    pData.classList.add('data-noticia');       
+
 
 
     const btnEditar = document.createElement('button');
@@ -49,8 +59,10 @@ function adicionarNoticia() {
 
     noticiaDiv.appendChild(h4);
     noticiaDiv.appendChild(pAutor);
+    noticiaDiv.appendChild(pData);
     noticiaDiv.appendChild(pConteudo);
     noticiaDiv.appendChild(containerBotoes);
+
 
 
     noticiasContainer.appendChild(noticiaDiv);
@@ -122,15 +134,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${noticia.conteudo}</p>
                 `;
 
-                
+
                 const btnExcluir = document.createElement('button');
                 btnExcluir.textContent = 'Excluir';
                 btnExcluir.classList.add('botaoexcluir');
 
-                
+
                 btnExcluir.onclick = () => excluirNoticia(index);
 
-                noticiaDiv.appendChild(btnExcluir); 
+                noticiaDiv.appendChild(btnExcluir);
                 listaNoticias.appendChild(noticiaDiv);
             });
         }
@@ -142,8 +154,8 @@ function excluirNoticia(index) {
 
     noticias.splice(index, 1);
 
-    localStorage.setItem('noticias', JSON.stringify(noticias)); 
-    location.reload(); 
+    localStorage.setItem('noticias', JSON.stringify(noticias));
+    location.reload();
 }
 
 
