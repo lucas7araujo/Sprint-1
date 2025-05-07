@@ -8,20 +8,24 @@ function adicionarNoticia() {
         year: 'numeric'
     });
 
+    if (!titulo || !autor || !conteudo) {
+        alert('Por favor, preencha todos os campos.');
+        return;
+    }
 
-    const noticia = { titulo, autor, conteudo, data };
+    const id = Date.now();
+
+    const noticia = { id, titulo, autor, conteudo, data };
     let noticias = JSON.parse(localStorage.getItem('noticias')) || [];
     noticias.push(noticia);
     localStorage.setItem('noticias', JSON.stringify(noticias));
 
-
     const noticiasContainer = document.getElementById('noticias-container');
     noticiasContainer.innerHTML = '';
 
-
     const noticiaDiv = document.createElement('div');
     noticiaDiv.classList.add('noticia');
-
+    noticiaDiv.setAttribute('data-id', id);
 
     const h4 = document.createElement('h4');
     h4.textContent = titulo;
@@ -32,38 +36,30 @@ function adicionarNoticia() {
     const pConteudo = document.createElement('p');
     pConteudo.textContent = conteudo;
 
-    const pData = document.createElement('p'); 
-    pData.textContent = `Data: ${data}`;       
-    pData.classList.add('data-noticia');       
-
-
+    const pData = document.createElement('p');
+    pData.textContent = `Data: ${data}`;
+    pData.classList.add('data-noticia');
 
     const btnEditar = document.createElement('button');
     btnEditar.textContent = 'Editar';
     btnEditar.classList.add('botaoeditar');
-    btnEditar.onclick = () => editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBotoes);
+    btnEditar.onclick = () => editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBotoes, id);
 
     const btnExcluir = document.createElement('button');
     btnExcluir.textContent = 'Excluir';
     btnExcluir.classList.add('botaoexcluir');
-    btnExcluir.onclick = () => noticiaDiv.remove();
-
+    btnExcluir.onclick = () => excluirNoticia(id, noticiaDiv);
 
     const containerBotoes = document.createElement('div');
     containerBotoes.classList.add('container-botoes');
-
-
     containerBotoes.appendChild(btnEditar);
     containerBotoes.appendChild(btnExcluir);
-
 
     noticiaDiv.appendChild(h4);
     noticiaDiv.appendChild(pAutor);
     noticiaDiv.appendChild(pData);
     noticiaDiv.appendChild(pConteudo);
     noticiaDiv.appendChild(containerBotoes);
-
-
 
     noticiasContainer.appendChild(noticiaDiv);
 
@@ -72,8 +68,7 @@ function adicionarNoticia() {
     document.getElementById('conteudo').value = '';
 }
 
-function editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBotoes) {
-
+function editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBotoes, id) {
     const inputTitulo = document.createElement('input');
     inputTitulo.type = 'text';
     inputTitulo.value = h4.textContent;
@@ -88,7 +83,6 @@ function editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBo
     textareaConteudo.value = pConteudo.textContent;
     textareaConteudo.classList.add('textarea-editar');
 
-
     h4.replaceWith(inputTitulo);
     pAutor.replaceWith(inputAutor);
     pConteudo.replaceWith(textareaConteudo);
@@ -96,7 +90,6 @@ function editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBo
     const btnSalvar = document.createElement('button');
     btnSalvar.textContent = 'Salvar';
     btnSalvar.classList.add('botaosalvar');
-
 
     btnSalvar.onclick = () => {
         h4.textContent = inputTitulo.value;
@@ -107,6 +100,18 @@ function editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBo
         inputAutor.replaceWith(pAutor);
         textareaConteudo.replaceWith(pConteudo);
 
+        let noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+
+        let index = noticias.findIndex(n => n.id === id);
+
+        if (index !== -1) {
+            noticias[index].titulo = h4.textContent;
+            noticias[index].autor = pAutor.textContent.replace('Autor: ', '');
+            noticias[index].conteudo = pConteudo.textContent;
+
+            localStorage.setItem('noticias', JSON.stringify(noticias));
+        }
+
         containerBotoes.innerHTML = '';
         containerBotoes.appendChild(btnEditar);
         containerBotoes.appendChild(btnExcluir);
@@ -114,6 +119,19 @@ function editarNoticia(h4, pAutor, pConteudo, btnEditar, btnExcluir, containerBo
 
     containerBotoes.innerHTML = '';
     containerBotoes.appendChild(btnSalvar);
+}
+
+function excluirNoticia(id, noticiaDiv) {
+    let noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+
+    let index = noticias.findIndex(n => n.id === id);
+
+    if (index !== -1) {
+        noticias.splice(index, 1);
+        localStorage.setItem('noticias', JSON.stringify(noticias));
+    }
+
+    noticiaDiv.remove();
 }
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -134,13 +152,22 @@ document.addEventListener('DOMContentLoaded', () => {
                     <p>${noticia.conteudo}</p>
                 `;
 
-
                 const btnExcluir = document.createElement('button');
                 btnExcluir.textContent = 'Excluir';
                 btnExcluir.classList.add('botaoexcluir');
 
-
-                btnExcluir.onclick = () => excluirNoticia(index);
+                btnExcluir.onclick = () => {
+                    noticiaDiv.remove();
+                
+                    let noticias = JSON.parse(localStorage.getItem('noticias')) || [];
+                
+                    let index = noticias.findIndex(n => n.id === noticia.id);
+                
+                    if (index !== -1) {
+                        noticias.splice(index, 1);
+                        localStorage.setItem('noticias', JSON.stringify(noticias));
+                    }
+                };
 
                 noticiaDiv.appendChild(btnExcluir);
                 listaNoticias.appendChild(noticiaDiv);
@@ -149,22 +176,10 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 });
 
-function excluirNoticia(index) {
-    let noticias = JSON.parse(localStorage.getItem('noticias')) || [];
-
-    noticias.splice(index, 1);
-
-    localStorage.setItem('noticias', JSON.stringify(noticias));
-    location.reload();
-}
-
-
-
-
 const hoje = new Date();
 const dataFormatada = hoje.toLocaleDateString('pt-BR', {
     day: '2-digit',
     month: '2-digit',
     year: 'numeric'
 });
-document.getElementById('data-atual').textContent = dataFormatada; 
+document.getElementById('data-atual').textContent = dataFormatada;
