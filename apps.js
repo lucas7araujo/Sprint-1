@@ -37,7 +37,7 @@ function adicionarNoticia() {
     pConteudo.textContent = conteudo;
 
     const pData = document.createElement('p');
-    pData.textContent = `Data: ${data}`;
+    pData.textContent = `Publicado em ${data}.`;
     pData.classList.add('data-noticia');
 
     const btnEditar = document.createElement('button');
@@ -57,8 +57,8 @@ function adicionarNoticia() {
 
     noticiaDiv.appendChild(h4);
     noticiaDiv.appendChild(pAutor);
-    noticiaDiv.appendChild(pData);
     noticiaDiv.appendChild(pConteudo);
+    noticiaDiv.appendChild(pData);
     noticiaDiv.appendChild(containerBotoes);
 
     noticiasContainer.appendChild(noticiaDiv);

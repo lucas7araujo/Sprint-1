@@ -11,12 +11,12 @@
 
 <body>
 
-  
+
   <header>
 
     <nav>
-        <a class="logo" href="about.html" style="color: #fff;">Desloca Aê</a>
-        <div class="container-mobile-menu">
+      <a class="logo" href="about.html" style="color: #fff;">Desloca Aê</a>
+      <div class="container-mobile-menu">
         <div class="mobile-menu">
           <div class="line1"></div>
           <div class="line2"></div>
@@ -28,9 +28,9 @@
           <li><a href="detalhes.html">Notícias</a></li>
           <li><a href="#">Contato</a></li>
         </ul>
-      </nav>
+    </nav>
 
-</header>
+  </header>
 
   <main>
     <div class="titulo">
@@ -41,7 +41,8 @@
       <form class="input-noticias">
         <h3>Inserção de Notícias</h3>
         <input type="text" id="titulo" name="titulo" placeholder="Digite o título da notícia:" required>
-        <input type="text" id="autor" name="autor" placeholder="Autor da notícia:" required>
+        <input type="text" id="autor" name="autor" placeholder="Autor da notícia:" required
+          onkeypress="return /^[A-Za-zÀ-ÿ\s]+$/.test(event.key)">
         <input type="text" id="conteudo" name="conteudo" placeholder="Conteúdo da notícia:" required>
         <button type="button" onclick="adicionarNoticia()">Adicionar</button>
       </form>
